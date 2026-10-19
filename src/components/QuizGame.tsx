@@ -51,14 +51,14 @@ export function QuizGame({ session }: { session: Session }) {
 
       {done ? (
         <div className="py-6 text-center">
-          <p className="font-display text-3xl">{perfect ? "🌿 Perfect score" : "Nice try!"}</p>
+          <p className="font-display text-3xl">{perfect ? "🎉 Perfect score!" : "Nice try!"}</p>
           <p className="mt-2 text-muted-foreground">You got {score} out of {total}.</p>
           <button onClick={restart} className="btn-accent mt-6">Play again</button>
         </div>
       ) : (
         <>
           <p className="text-sm text-muted-foreground">Question {index + 1} of {total}</p>
-          <p className="mt-1 text-lg font-normal">{q.question}</p>
+          <p className="mt-1 text-lg font-semibold">{q.question}</p>
           <div className="mt-4 grid gap-2">
             {q.options.map((opt, i) => {
               let state = "option";
@@ -76,7 +76,7 @@ export function QuizGame({ session }: { session: Session }) {
           </div>
           {picked !== null && (
             <div className="mt-4 rounded-2xl bg-muted p-4">
-              <p className="font-medium">{picked === q.answer ? "Correct ✓" : "Not quite"}</p>
+              <p className="font-semibold">{picked === q.answer ? "✅ Correct!" : "❌ Not quite."}</p>
               <p className="mt-1 text-sm">{q.explanation}</p>
             </div>
           )}
