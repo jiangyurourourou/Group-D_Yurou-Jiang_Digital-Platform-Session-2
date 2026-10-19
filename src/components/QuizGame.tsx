@@ -1,14 +1,27 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Bow } from "./Bow";
-import type { Session } from "@/data/sessions";
+import type { Game } from "@/data/sessions";
 
-export function QuizGame({ session }: { session: Session }) {
+const makeOrders = (game: Game) =>
+  game.questions.map((q) => {
+    const idx = q.options.map((_, i) => i);
+    if (!game.shuffle) return idx;
+    for (let i = idx.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [idx[i], idx[j]] = [idx[j]!, idx[i]!];
+    }
+    return idx;
+  });
+
+export function QuizGame({ game }: { game: Game }) {
+  const [orders, setOrders] = useState(() => game.questions.map((q) => q.options.map((_, i) => i)));
+  useEffect(() => setOrders(makeOrders(game)), [game]);
   const [index, setIndex] = useState(0);
   const [picked, setPicked] = useState<number | null>(null);
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
-  const total = session.questions.length;
-  const q = session.questions[index]!;
+  const total = game.questions.length;
+  const q = game.questions[index]!;
 
   const pick = (i: number) => {
     if (picked !== null) return;
@@ -27,6 +40,7 @@ export function QuizGame({ session }: { session: Session }) {
     setPicked(null);
     setScore(0);
     setDone(false);
+    setOrders(makeOrders(game));
   };
 
   const perfect = done && score === total;
@@ -34,7 +48,7 @@ export function QuizGame({ session }: { session: Session }) {
   return (
     <div className="card relative overflow-hidden">
       <div className="mb-4 flex items-center justify-between">
-        <h3 className="font-display text-xl"><Bow /> Quiz game</h3>
+        <h3 className="font-display text-xl"><Bow /> {game.title}</h3>
         <span className="pill">Score: {score} / {total}</span>
       </div>
 
@@ -61,7 +75,8 @@ export function QuizGame({ session }: { session: Session }) {
           <p className="text-sm text-muted-foreground">Question {index + 1} of {total}</p>
           <p className="mt-1 font-display text-lg">{q.question}</p>
           <div className="mt-4 grid gap-2">
-            {q.options.map((opt, i) => {
+            {(orders[index] ?? []).map((i) => {
+              const opt = q.options[i];
               let state = "option";
               if (picked !== null) {
                 if (i === q.answer) state = "option option-right";
@@ -77,7 +92,7 @@ export function QuizGame({ session }: { session: Session }) {
           </div>
           {picked !== null && (
             <div className="mt-4 rounded-3xl border bg-muted p-4">
-              <p className="font-display">{picked === q.answer ? "Correct ♡" : "Not quite"}</p>
+              <p className="font-display">{picked === q.answer ? "Correct! ♡" : `Not quite — the answer is: ${q.options[q.answer]}`}</p>
               <p className="mt-1 text-sm">{q.explanation}</p>
             </div>
           )}

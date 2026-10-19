@@ -63,9 +63,9 @@ function Index() {
             <div className="grid gap-3 sm:grid-cols-2">
               {sessions.map((s) => (
                 <button key={s.id} onClick={() => setTab(s.id)} className="card text-left transition hover:-translate-y-1">
-                  <span className="pill">{s.date}</span>
+                  <span className="pill">{s.date} · {s.event}</span>
                   <p className="mt-2 font-display text-xl">{s.title}</p>
-                  <p className="text-sm text-muted-foreground">{s.questions.length} questions</p>
+                  <p className="text-sm text-muted-foreground">{s.games.reduce((n, g) => n + g.questions.length, 0)} questions</p>
                 </button>
               ))}
             </div>
@@ -73,7 +73,7 @@ function Index() {
         ) : (
           <>
             <section className="card">
-              <span className="pill">{session.date}</span>
+              <span className="pill">{session.date} · {session.event}</span>
               <h2 className="mt-2 font-display text-3xl">{session.title}</h2>
               <p className="text-sm text-muted-foreground">Speaker: {session.speakers.join(", ")}</p>
               <hr className="ribbon-line my-6" />
@@ -84,7 +84,9 @@ function Index() {
                 ))}
               </ul>
             </section>
-            <QuizGame key={session.id} session={session} />
+            {session.games.map((g) => (
+              <QuizGame key={session.id + g.title} game={g} />
+            ))}
           </>
         )}
       </main>
