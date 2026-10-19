@@ -30,7 +30,7 @@ function Index() {
           Guest Speaker <span className="text-muted-foreground">Game Hub</span>
         </h1>
         <hr className="ribbon-line mx-auto mt-6 w-40" />
-        <p className="mt-4 text-muted-foreground">What I learned from each guest speaker — turned into quick games.</p>
+        <p className="mt-4 text-muted-foreground">What I learned?</p>
       </header>
 
       <nav className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
