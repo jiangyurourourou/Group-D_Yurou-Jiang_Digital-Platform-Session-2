@@ -23,15 +23,17 @@ function Index() {
 
   return (
     <div className="min-h-screen">
-      <header className="mx-auto max-w-3xl px-4 pt-10 pb-6">
-        <h1 className="font-display text-4xl sm:text-5xl">
-          Guest Speaker <span className="text-primary">Game Hub</span>
+      <header className="mx-auto max-w-3xl px-4 pt-16 pb-10 text-center">
+        <h1 className="font-display text-3xl sm:text-5xl">
+          <span className="mb-3 block text-2xl">🌿</span>
+          
+          Guest Speaker <span className="text-success">Game Hub</span>
         </h1>
         <p className="mt-2 text-muted-foreground">What I learned from each guest speaker — turned into quick games.</p>
       </header>
 
-      <nav className="sticky top-0 z-10 border-b bg-background/90 backdrop-blur">
-        <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto px-4 py-3">
+      <nav className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
+        <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto px-4 py-4 sm:justify-center">
           <button onClick={() => setTab("home")} className={tab === "home" ? "tab tab-active" : "tab"}>Home</button>
           {sessions.map((s) => (
             <button key={s.id} onClick={() => setTab(s.id)} className={tab === s.id ? "tab tab-active" : "tab"}>
@@ -41,11 +43,11 @@ function Index() {
         </div>
       </nav>
 
-      <main className="mx-auto max-w-3xl space-y-5 px-4 py-6">
+      <main className="mx-auto max-w-3xl space-y-8 px-5 py-12">
         {!session ? (
           <>
             <section className="card">
-              <h2 className="font-display text-2xl">Welcome! 👋</h2>
+              <h2 className="font-display text-2xl">Welcome 🍫</h2>
               <p className="mt-2">This site collects the key ideas from every guest speaker session this semester. Each session has its own tab with a short quiz game.</p>
             </section>
             <section className="card">
@@ -59,7 +61,7 @@ function Index() {
             </section>
             <div className="grid gap-3 sm:grid-cols-2">
               {sessions.map((s) => (
-                <button key={s.id} onClick={() => setTab(s.id)} className="card text-left transition hover:-translate-y-1">
+                <button key={s.id} onClick={() => setTab(s.id)} className="card text-left transition duration-300 hover:scale-[1.02]">
                   <span className="pill">{s.date}</span>
                   <p className="mt-2 font-display text-xl">{s.title}</p>
                   <p className="text-sm text-muted-foreground">{s.questions.length} questions</p>
@@ -73,10 +75,10 @@ function Index() {
               <span className="pill">{session.date}</span>
               <h2 className="mt-2 font-display text-3xl">{session.title}</h2>
               <p className="text-sm text-muted-foreground">Speaker: {session.speakers.join(", ")}</p>
-              <h3 className="mt-4 font-semibold">Key takeaways</h3>
+              <h3 className="mt-4 font-display">Key takeaways</h3>
               <ul className="mt-2 space-y-2">
                 {session.takeaways.map((t) => (
-                  <li key={t} className="flex gap-2"><span className="text-primary">★</span>{t}</li>
+                  <li key={t} className="flex gap-2"><span className="text-success">❧</span>{t}</li>
                 ))}
               </ul>
             </section>
