@@ -7,7 +7,7 @@ export function QuizGame({ session }: { session: Session }) {
   const [score, setScore] = useState(0);
   const [done, setDone] = useState(false);
   const total = session.questions.length;
-  const q = session.questions[index];
+  const q = session.questions[index]!;
 
   const pick = (i: number) => {
     if (picked !== null) return;
