@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
 import { sessions } from "@/data/sessions";
+import { Bow } from "@/components/Bow";
 import { QuizGame } from "@/components/QuizGame";
 
 export const Route = createFileRoute("/")({
@@ -23,14 +24,16 @@ function Index() {
 
   return (
     <div className="min-h-screen">
-      <header className="mx-auto max-w-3xl px-4 pt-10 pb-6">
+      <header className="mx-auto max-w-3xl px-4 pt-14 pb-8 text-center">
+        <Bow className="float mb-3 h-8 w-12" />
         <h1 className="font-display text-4xl sm:text-5xl">
-          Guest Speaker <span className="text-primary">Game Hub</span>
+          Guest Speaker <span className="text-muted-foreground">Game Hub</span>
         </h1>
-        <p className="mt-2 text-muted-foreground">What I learned from each guest speaker — turned into quick games.</p>
+        <hr className="ribbon-line mx-auto mt-6 w-40" />
+        <p className="mt-4 text-muted-foreground">What I learned from each guest speaker — turned into quick games.</p>
       </header>
 
-      <nav className="sticky top-0 z-10 border-b bg-background/90 backdrop-blur">
+      <nav className="sticky top-0 z-10 border-b bg-background/80 backdrop-blur">
         <div className="mx-auto flex max-w-3xl gap-2 overflow-x-auto px-4 py-3">
           <button onClick={() => setTab("home")} className={tab === "home" ? "tab tab-active" : "tab"}>Home</button>
           {sessions.map((s) => (
@@ -41,15 +44,15 @@ function Index() {
         </div>
       </nav>
 
-      <main className="mx-auto max-w-3xl space-y-5 px-4 py-6">
+      <main className="mx-auto max-w-3xl space-y-8 px-4 py-10">
         {!session ? (
           <>
             <section className="card">
-              <h2 className="font-display text-2xl">Welcome! 👋</h2>
+              <h2 className="font-display text-2xl"><Bow /> Welcome</h2>
               <p className="mt-2">This site collects the key ideas from every guest speaker session this semester. Each session has its own tab with a short quiz game.</p>
             </section>
             <section className="card">
-              <h2 className="font-display text-2xl">How to play</h2>
+              <h2 className="font-display text-2xl"><Bow /> How to play</h2>
               <ol className="mt-2 list-decimal space-y-1 pl-5">
                 <li>Pick a session tab above.</li>
                 <li>Read the key takeaways.</li>
@@ -73,10 +76,11 @@ function Index() {
               <span className="pill">{session.date}</span>
               <h2 className="mt-2 font-display text-3xl">{session.title}</h2>
               <p className="text-sm text-muted-foreground">Speaker: {session.speakers.join(", ")}</p>
-              <h3 className="mt-4 font-semibold">Key takeaways</h3>
+              <hr className="ribbon-line my-6" />
+              <h3 className="font-display"><Bow /> Key takeaways</h3>
               <ul className="mt-2 space-y-2">
                 {session.takeaways.map((t) => (
-                  <li key={t} className="flex gap-2"><span className="text-primary">★</span>{t}</li>
+                  <li key={t} className="flex gap-2"><span className="text-muted-foreground">♡</span>{t}</li>
                 ))}
               </ul>
             </section>
