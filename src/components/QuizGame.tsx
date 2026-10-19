@@ -49,7 +49,7 @@ export function QuizGame({ game }: { game: Game }) {
     <div className="card relative overflow-hidden">
       <div className="mb-4 flex items-center justify-between">
         <h3 className="font-display text-xl"><Bow /> {game.title}</h3>
-        <span className="pill">Score: {score} / {total}</span>
+        <span className="pill shrink-0 whitespace-nowrap">Score: {score} / {total}</span>
       </div>
 
       {perfect && (
